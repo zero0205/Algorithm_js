@@ -1,0 +1,31 @@
+function solution(dirs) {
+  let answer = 0;
+  const direction = {
+    U: [-1, 0],
+    D: [1, 0],
+    R: [0, 1],
+    L: [0, -1],
+  };
+  let position = [0, 0];
+  const visited = new Set();
+  for (const d of dirs) {
+    const [x, y] = position;
+    const nx = position[0] + direction[d][0];
+    const ny = position[1] + direction[d][1];
+
+    if (nx < -5 || nx > 5 || ny < -5 || ny > 5) continue;
+    if (
+      !visited.has([x, y, nx, ny].join("_")) &&
+      !visited.has([nx, ny, x, y].join("_"))
+    ) {
+      visited.add([x, y, nx, ny].join("_"));
+      answer++;
+    }
+    position = [nx, ny];
+  }
+
+  return answer;
+}
+
+console.log(solution("ULURRDLLU"));
+console.log(solution("LULLLLLLU"));
